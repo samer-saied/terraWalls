@@ -1,0 +1,31 @@
+name: terrawalls
+description: "Discover, Preview, and Download Stunning Wallpapers for Free!"
+publish_to: "none"
+version: 1.0.0
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  bloc: ^9.0.0
+  control_style: ^0.1.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.0
+  gal: ^2.3.1
+  google_mobile_ads: ^6.0.0
+  http: ^0.13.6
+  meta: ^1.16.0
+  rflutter_alert: ^2.0.7
+  url_launcher: ^6.3.1
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
