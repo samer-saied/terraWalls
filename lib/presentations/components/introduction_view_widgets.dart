@@ -9,11 +9,12 @@ class IntroductionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final encodedUrl = Uri.encodeFull(image.urls.regular);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         image: DecorationImage(
-          image: NetworkImage(image.urls.regular),
+          image: NetworkImage(encodedUrl),
           fit: BoxFit.cover,
         ),
       ),

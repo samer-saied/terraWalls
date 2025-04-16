@@ -3,74 +3,50 @@ import 'dart:convert';
 class UnsplashPhoto {
   final String id;
   final String slug;
-  final AlternativeSlugs alternativeSlugs;
+  // final AlternativeSlugs alternativeSlugs;
   final DateTime createdAt;
-  final DateTime updatedAt;
-  final DateTime? promotedAt;
   final int width;
   final int height;
   final String color;
-  final String blurHash;
   final String? description;
   final String altDescription;
-  final List<dynamic>? breadcrumbs;
   final PhotoUrls urls;
   final PhotoLinks links;
-  final int likes;
-  final bool likedByUser;
-  final List<dynamic>? currentUserCollections;
-  final dynamic sponsorship;
   final String assetType;
   final PhotoUser user;
 
   UnsplashPhoto({
     required this.id,
     required this.slug,
-    required this.alternativeSlugs,
+    // required this.alternativeSlugs,
     required this.createdAt,
-    required this.updatedAt,
-    this.promotedAt,
     required this.width,
     required this.height,
     required this.color,
-    required this.blurHash,
     this.description,
     required this.altDescription,
-    this.breadcrumbs,
     required this.urls,
     required this.links,
-    required this.likes,
-    required this.likedByUser,
-    this.currentUserCollections,
-    this.sponsorship,
+
     required this.assetType,
     required this.user,
   });
 
   factory UnsplashPhoto.fromJson(Map<String, dynamic> json) {
     return UnsplashPhoto(
-      id: json['id'],
+      id: json['id'].toString(),
       slug: json['slug'],
-      alternativeSlugs: AlternativeSlugs.fromJson(json['alternative_slugs']),
       createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
-      promotedAt:
-          json['promoted_at'] != null
-              ? DateTime.parse(json['promoted_at'])
-              : null,
       width: json['width'],
       height: json['height'],
-      color: json['color'],
-      blurHash: json['blur_hash'],
+      color: json['color'] ?? "",
       description: json['description'] ?? "",
       altDescription: json['alt_description'] ?? "",
-      breadcrumbs: json['breadcrumbs'] ?? [],
       urls: PhotoUrls.fromJson(json['urls']),
-      links: PhotoLinks.fromJson(json['links']),
-      likes: json['likes'],
-      likedByUser: json['liked_by_user'] ?? "",
-      currentUserCollections: json['current_user_collections'] ?? [],
-      sponsorship: json['sponsorship'] ?? "",
+      links:
+          json['links'] == null
+              ? PhotoLinks(download: "sa", self: "sa")
+              : PhotoLinks.fromJson(json['links']),
       assetType: json['asset_type'] ?? "",
       user: PhotoUser.fromJson(json['user']),
     );
@@ -80,23 +56,15 @@ class UnsplashPhoto {
     return {
       'id': id,
       'slug': slug,
-      'alternative_slugs': alternativeSlugs.toJson(),
+      // 'alternative_slugs': alternativeSlugs.toJson(),
       'created_at': createdAt.toIso8601String(),
-      'updated_at': updatedAt.toIso8601String(),
-      'promoted_at': promotedAt?.toIso8601String(),
       'width': width,
       'height': height,
       'color': color,
-      'blur_hash': blurHash,
       'description': description,
       'alt_description': altDescription,
-      'breadcrumbs': breadcrumbs,
       'urls': urls.toJson(),
       'links': links.toJson(),
-      'likes': likes,
-      'liked_by_user': likedByUser,
-      'current_user_collections': currentUserCollections,
-      'sponsorship': sponsorship,
       'asset_type': assetType,
       'user': user.toJson(),
     };

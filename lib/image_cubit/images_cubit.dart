@@ -49,22 +49,22 @@ class ImagesCubit extends Cubit<ImagesState> {
   }
 }
 
-  Future<List<dynamic>> fetchData(String? query, int index) async {
-    String url = AppUrls.getFullUrl(query: query, pageNo: index);
-    http.Response response = await http.get(Uri.parse(url));
+Future<List<dynamic>> fetchData(String? query, int index) async {
+  String url = AppUrls.getFullUrl(query: query, pageNo: index);
+  http.Response response = await http.get(Uri.parse(url));
 
-    try {
-      if (response.statusCode == 200) {
-        dynamic data = json.decode(response.body);
-        return query == null ? data : data['results'];
-      } else {
-        return [
-          {'error': 'Failed to load data', 'code': "No Response"},
-        ];
-      }
-    } catch (e) {
+  try {
+    if (response.statusCode == 200) {
+      dynamic data = json.decode(response.body);
+      return query == null ? data['images'] : data['results'];
+    } else {
       return [
-        {'error': 'Failed to load data', 'code': e.toString()},
+        {'error': 'Failed to load data', 'code': "No Response"},
       ];
     }
+  } catch (e) {
+    return [
+      {'error': 'Failed to load data', 'code': e.toString()},
+    ];
   }
+}

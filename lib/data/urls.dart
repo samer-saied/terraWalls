@@ -6,7 +6,7 @@ class AppUrls {
   static getFullUrl({ String? query, required int pageNo}) {
     // return '${unsplash}search/$photos?query=$query&page=$pageNo&client_id=$secretApi';
     return query == null
-        ? '${unsplash}users/samersaied/photos?client_id=$secretApi'
+        ? 'https://terrawalls-ten.vercel.app/images'
         : '${unsplash}search/$photos?query=$query&page=$pageNo&client_id=$secretApi';
   }
 }
