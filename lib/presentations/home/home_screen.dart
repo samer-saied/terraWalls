@@ -19,7 +19,9 @@ class MainScreen extends StatelessWidget {
     ///
     BlocProvider.of<ImagesCubit>(context).data.isEmpty
         ? BlocProvider.of<ImagesCubit>(context).getImages()
-        : BlocProvider.of<ImagesCubit>(context).getImages(query:items[math.Random().nextInt(items.length)]);
+        : BlocProvider.of<ImagesCubit>(
+          context,
+        ).getImages(query: items[math.Random().nextInt(items.length)]);
 
     ///
     ///

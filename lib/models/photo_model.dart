@@ -36,7 +36,7 @@ class UnsplashPhoto {
     return UnsplashPhoto(
       id: json['id'].toString(),
       slug: json['slug'],
-      createdAt: DateTime.parse(json['created_at']),
+      createdAt:json['created_at'] == null ? DateTime.now() : DateTime.parse(json['created_at']),
       width: json['width'],
       height: json['height'],
       color: json['color'] ?? "",

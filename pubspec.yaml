@@ -1,7 +1,7 @@
 name: terrawalls
 description: "Discover, Preview, and Download Stunning Wallpapers for Free!"
 publish_to: "none"
-version: 1.0.0
+version: 1.0.2+3
 
 environment:
   sdk: ^3.7.0

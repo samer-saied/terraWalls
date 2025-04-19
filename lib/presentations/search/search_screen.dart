@@ -15,7 +15,7 @@ class SearchViewWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          IconLeftInput(txt: "Cars, Earth, Mobile, ...", icon: Icons.person),
+          IconLeftInput(txt: "what do you want to see?", icon: Icons.search),
           GridViewWidget(),
         ],
       ),
@@ -83,10 +83,29 @@ class GridViewWidget extends StatelessWidget {
 }
 
 /////////////////////////////  SearchBar   //////////////////////////////////
-class IconLeftInput extends StatelessWidget {
+class IconLeftInput extends StatefulWidget {
   final String txt;
   final IconData icon;
   const IconLeftInput({super.key, required this.txt, required this.icon});
+
+  @override
+  State<IconLeftInput> createState() => _IconLeftInputState();
+}
+
+class _IconLeftInputState extends State<IconLeftInput> {
+ late TextEditingController controller ;
+
+  @override
+  void initState() {
+    controller = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +114,12 @@ class IconLeftInput extends StatelessWidget {
       child: PrimaryContainer(
         radius: 10,
         child: TextFormField(
+          
+          cursorColor: Colors.white,
           onFieldSubmitted: (value) {
-            BlocProvider.of<ImagesCubit>(context).getImagesData(value, 1);
+            BlocProvider.of<ImagesCubit>(
+              context,
+            ).getImagesData(controller.text.toString(), 1);
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -105,10 +128,23 @@ class IconLeftInput extends StatelessWidget {
             );
           },
           style: const TextStyle(fontSize: 18, color: Colors.white),
-          controller: TextEditingController(),
+          controller: controller,
           textAlignVertical: TextAlignVertical.center,
-
+          onChanged: (val) {
+            setState(() {
+             
+            });
+             controller.text = val;
+          },
           decoration: InputDecoration(
+            suffixIcon: controller.text.isNotEmpty ? IconButton(
+              onPressed: () {
+                setState(() {
+                  controller.text = "";
+                });
+              },
+              icon: Icon(Icons.clear, color: Colors.red.withValues(alpha: 0.5)),
+            ):SizedBox(),
             contentPadding: const EdgeInsets.only(
               left: 20,
               right: 20,
@@ -117,7 +153,7 @@ class IconLeftInput extends StatelessWidget {
 
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Color(0xFF00BAAB)),
+              borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.8)),
             ),
             // fillColor: Colors.grey.withValues(alpha: 0.15),
             errorBorder: InputBorder.none,
@@ -127,8 +163,8 @@ class IconLeftInput extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(color: Colors.grey),
             ),
-            hintText: txt,
-            prefixIcon: Icon(icon),
+            hintText: widget.txt,
+            prefixIcon: Icon(widget.icon),
             hintStyle: const TextStyle(fontSize: 18, color: Colors.grey),
           ),
         ),
